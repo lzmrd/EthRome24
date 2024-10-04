@@ -52,19 +52,35 @@ export default function SignupForm() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitLoading(true);
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage("The passwords do not match!");
       setIsSubmitLoading(false);
       return;
     }
-    console.log(formData);
-    //Aggiungi logica BE
-    setTimeout(() => {
-      setIsSubmitLoading(false);
-    }, 3000);
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrorMessage(data.message);
+      } else {
+        //TODO: Redirect
+      }
+    } catch (error) {
+      setErrorMessage("An error occurred. Please try again.");
+    }
   };
 
   return (
