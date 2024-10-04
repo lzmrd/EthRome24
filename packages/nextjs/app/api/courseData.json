@@ -1,0 +1,104 @@
+{
+    "courses": [
+        {
+            "id": 101,
+            "title": "Introduction to Programming with Python",
+            "description": "Learn the basics of programming with the Python language.",
+            "category": "Programming",
+            "level": "Beginner",
+            "durationHours": 20,
+            "mode": "Online",
+            "language": "Italian"
+        },
+        {
+            "id": 102,
+            "title": "Fundamentals of Digital Marketing",
+            "description": "Discover the main strategies for digital marketing to grow your business.",
+            "category": "Marketing",
+            "level": "Intermediate",
+            "durationHours": 15,
+            "mode": "Online",
+            "language": "English"
+        },
+        {
+            "id": 103,
+            "title": "User Interface Design",
+            "description": "Deepen your understanding of techniques and principles of interface design for web and mobile applications.",
+            "category": "Design",
+            "level": "Advanced",
+            "durationHours": 25,
+            "mode": "Online",
+            "language": "Italian"
+        },
+        {
+            "id": 104,
+            "title": "Full Stack Web Development",
+            "description": "Become a full-stack developer mastering both front-end and back-end.",
+            "category": "Web Development",
+            "level": "Advanced",
+            "durationHours": 50,
+            "mode": "Online",
+            "language": "English"
+        },
+        {
+            "id": 105,
+            "title": "Artificial Intelligence for Beginners",
+            "description": "A step-by-step guide to understand the basic concepts of artificial intelligence.",
+            "category": "Artificial Intelligence",
+            "level": "Beginner",
+            "durationHours": 30,
+            "mode": "Online",
+            "language": "Italian"
+        },
+        {
+            "id": 106,
+            "title": "Blockchain and Cryptocurrencies",
+            "description": "Explore blockchain technology and the world of cryptocurrencies.",
+            "category": "Finance",
+            "level": "Intermediate",
+            "durationHours": 20,
+            "mode": "Online",
+            "language": "English"
+        },
+        {
+            "id": 107,
+            "title": "Time Management and Productivity",
+            "description": "Learn strategies to optimize your time and increase productivity.",
+            "category": "Personal Development",
+            "level": "Beginner",
+            "durationHours": 10,
+            "mode": "Online",
+            "language": "Italian"
+        },
+        {
+            "id": 108,
+            "title": "Digital Photography for Beginners",
+            "description": "Learn the basics of digital photography and how to take professional photos.",
+            "category": "Photography",
+            "level": "Beginner",
+            "durationHours": 12,
+            "mode": "Online",
+            "language": "Italian"
+        },
+        {
+            "id": 109,
+            "title": "Data Analysis with Excel",
+            "description": "Use Excel to perform data analysis and create effective reports.",
+            "category": "Data Analysis",
+            "level": "Intermediate",
+            "durationHours": 18,
+            "mode": "Online",
+            "language": "English"
+        },
+        {
+            "id": 110,
+            "title": "Videomaking and Video Editing",
+            "description": "Learn the basic techniques to create and edit professional videos.",
+            "category": "Multimedia",
+            "level": "Intermediate",
+            "durationHours": 22,
+            "mode": "Online",
+            "language": "Italian"
+        }
+    ]
+}
