@@ -77,8 +77,12 @@ export default function SignupForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: formData.email,
+          name: formData.name,
+          surname: formData.surname,
+          email: formData.email,
           password: formData.password,
+          createdAt: new Date().toISOString()
+
         }),
       });
 
@@ -123,7 +127,7 @@ export default function SignupForm() {
               <input
                 type="text"
                 id="surname"
-                name="surname"
+                name="surname" // Corretto da "name" a "surname"
                 value={formData.surname}
                 onChange={handleChange}
                 className="input input-bordered"

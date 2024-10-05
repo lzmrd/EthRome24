@@ -1,45 +1,36 @@
+
 import React from "react";
-import { getSession } from "./(auth)/action";
+import { getSession } from "./(auth)/action"; // Assicurati che il percorso sia corretto
 import "@rainbow-me/rainbowkit/styles.css";
 import { Metadata } from "next";
-// import { ScaffoldEthAppWithProviders } from "~~/components/ScaffoldEthAppWithProviders";
 import { ThemeProvider } from "~~/components/ThemeProvider";
-import UserInfo from "~~/components/UserInfo";
 import "~~/styles/globals.css";
-
-// import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
-
-// export const metadata = getMetadata({
-//   title: "Scaffold-ETH 2 App",
-//   description: "Built with 🏗 Scaffold-ETH 2",
-// });
+import Navbar from "~~/components/Navbar";
+import { SessionData } from "./api/login/auth.types";
 
 export const metadata: Metadata = {
-  title: {
-    template: "Nome da definire | %s ",
-    default: "Nome da definire",
-  },
+  title: "Nome da definire",
+  description: "Descrizione da definire",
 };
 
-export default async function ScaffoldEthApp({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const session = await getSession();
+export default async function ScaffoldEthApp({ children }: { children: React.ReactNode }) {
+  const session: SessionData = await getSession();
+
+
+
 
   return (
     <html suppressHydrationWarning>
       <body>
         <ThemeProvider enableSystem>
-          {/* <ScaffoldEthAppWithProviders> */}
-            {session.isLoggedIn && (
-              <UserInfo/>
-            )}
-            {children}
-          {/* </ScaffoldEthAppWithProviders> */}
+          {session.isLoggedIn && (
+            <Navbar />
+          )
+          }
+          {children}
         </ThemeProvider>
       </body>
     </html>
   );
 }
+

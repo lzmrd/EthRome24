@@ -22,7 +22,7 @@ export default function LoginForm() {
       const formPassword = formData.get("password") as string;
 
       const bodyObj = {
-        username: formEmail,
+        email: formEmail,
         password: formPassword,
       };
 
