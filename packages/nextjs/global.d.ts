@@ -12,7 +12,7 @@ declare global {
             getCurrentTime: () => number;
             seekTo: (time: number, stop: boolean) => void;
             setVolume: (volume: number) => void;
-            addEventListener: (event: string, callback: (event: any) => void) => void; // Aggiunta di addEventListener
+            addEventListener: (event: string, callback: (event: any) => void) => void; 
           };
         };
         PlayerState: {
@@ -23,7 +23,6 @@ declare global {
           BUFFERING: number;
           CUED: number;
         };
-        // Altri membri dell'API che potresti voler definire
       };
     }
   }

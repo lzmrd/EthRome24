@@ -7,14 +7,13 @@ export async function middleware(req: NextRequest) {
   const pathname = url.pathname;
   const session: SessionData = await getSession();
 
-  // Allow static files and favicon
   if (pathname.startsWith('/_next/') || pathname.startsWith('/favicon.ico')) {
     return NextResponse.next();
   }
 
   if (pathname === "/login" || pathname === "/sign-up") {
     if (session.isLoggedIn) {
-      return NextResponse.redirect(new URL("/", req.url)); // Reindirizza all'home page
+      return NextResponse.redirect(new URL("/courses", req.url)); 
     }
     return NextResponse.next();
   }
