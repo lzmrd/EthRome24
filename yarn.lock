@@ -10827,6 +10827,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"permissionless@npm:^0.2.5":
+  version: 0.2.5
+  resolution: "permissionless@npm:0.2.5"
+  peerDependencies:
+    viem: ^2.20.0
+  checksum: c96a2b2a735b63eb6f1de446beead1941ac525a54affe1bd5e481c6ee7bd3a99eaa142ce136d58903862739dc29d7a1a1dc62ddefa3687978c8f5c460bdde9a7
+  languageName: node
+  linkType: hard
+
 "picocolors@npm:1.0.0":
   version: 1.0.0
   resolution: "picocolors@npm:1.0.0"
@@ -11946,6 +11955,8 @@ __metadata:
   dependencies:
     husky: ~8.0.3
     lint-staged: ~13.2.2
+    permissionless: ^0.2.5
+    ts-node: ^10.9.2
   languageName: unknown
   linkType: soft
 
@@ -13063,7 +13074,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:~10.9.1":
+"ts-node@npm:^10.9.2, ts-node@npm:~10.9.1":
   version: 10.9.2
   resolution: "ts-node@npm:10.9.2"
   dependencies:
