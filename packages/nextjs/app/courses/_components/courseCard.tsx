@@ -26,25 +26,24 @@ export default function CourseCard({ course }: { course: Course }) {
     }
   }
   return (
-    <div className="p-6 border rounded shadow-lg bg-base-100">
-      <div className="mb-2">
+    <div className="p-6 border rounded shadow-lg bg-base-100 flex flex-col justify-between h-full">
+      
+      <div className="flex items-center gap-4 mb-2">
         <span className="badge badge-primary text-white px-4 py-2">{course.category}</span>
-      </div>
-      <h2 className="text-2xl font-semibold mb-2">{course.title}</h2>
-      <p className="mb-4 text-base text-gray-600">{course.description}</p>
-
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex items-center">
-          <span className={`badge mr-2 ${getLevelStyle(course.level)}`}>{course.level}</span>
-        </div>
-        <div>
-          <strong>Duration:</strong> {course.durationHours} hours
-        </div>
+        <span className={`badge ${getLevelStyle(course.level)} px-4 py-2`}>{course.level}</span>
       </div>
 
-      <Link href={`/course/${course.id}`}>
-        <button className="btn btn-primary w-full">Detail</button>
-      </Link>
+      <div className="flex-grow">
+        <h2 className="text-2xl font-semibold mb-2">{course.title}</h2>
+        <p className="mb-4 text-base text-gray-600">{course.description}</p>
+      </div>
+
+      
+      <div className="mt-auto">
+        <Link href={`/course/${course.id}`}>
+          <button className="btn btn-primary w-full">Detail</button>
+        </Link>
+      </div>
     </div>
   );
 }

@@ -76,11 +76,11 @@ export default function SignupForm() {
     }
 
     try {
-      // const smartAccountAddress = await predictSmartAccountAddress();
-      // if (!smartAccountAddress) {
-      //   setErrorMessage("Error predicting smart account");
-      //   return;
-      // }
+      const smartAccountAddress = await predictSmartAccountAddress();
+      if (!smartAccountAddress) {
+        setErrorMessage("Error predicting smart account");
+        return;
+      }
 
       const response = await fetch("/api/register", {
         method: "POST",
@@ -93,7 +93,7 @@ export default function SignupForm() {
           email: formData.email,
           password: formData.password,
           createdAt: new Date().toISOString(),
-          smartAccountAddress: {}
+          smartAccountAddress: smartAccountAddress
         }),
       });
 

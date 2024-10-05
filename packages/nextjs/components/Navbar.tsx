@@ -17,7 +17,7 @@ export default async function Navbar(){
       <div className="flex items-center">
         {session && session.user ? (
           <>
-            <p className="mr-4">Welcome, {session.user?.name}</p>
+            <p className="mr-4">Welcome back, <b>{session.user?.name}</b></p>
             <form action={logoutFunction}>
               <button className="btn btn-primary" type="submit">
                 Logout
