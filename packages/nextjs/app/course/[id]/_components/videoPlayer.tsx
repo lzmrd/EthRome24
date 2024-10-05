@@ -167,20 +167,6 @@ export default function YouTubeStyleVideoPlayer({ videoUrl,certificateCourseComp
           {volume === 0 ? <FaVolumeMute className="text-gray-600" /> : <FaVolumeUp className="text-gray-600" />}
         </button>
       </div>
-
-      {showModal && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
-          <div className="bg-white p-5 rounded-lg shadow-lg text-center">
-            <h2 className="text-xl font-semibold">Congratulations</h2>
-            <button
-              onClick={handleRestartVideo}
-              className="mt-4 bg-blue-500 text-white p-2 rounded"
-            >
-              Restart Video
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

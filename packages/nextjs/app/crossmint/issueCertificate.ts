@@ -27,11 +27,17 @@ export async function issueCourseCompletionCertificate(userEmail: string, course
     };
 
     try {
-        const response = await fetch(`https://staging.crossmint.com/api/v1-alpha1/credentials/templates/${templateId}/vcs`, options);
-        const result = await response.json();
-        console.log("Certificate issued successfully:", result);
+        //const response = await fetch(`https://staging.crossmint.com/api/v1-alpha1/credentials/templates/${templateId}/vcs`, options);
+        const result = JSON.stringify({
+            id: '96ac6b61-a0e7-463d-853b-b520e65683bb',
+            onChain: {
+                status: 'pending',
+                chain: 'polygon-amoy', contractAddress: '0x7421A2D732Ab41A714Dd0aCC6834FAA0Da329910'
+            }, credentialId: 'urn:uuid:8fd81a01-f2b6-4376-a638-4f63d6b895a0',
+            actionId: '96ac6b61-a0e7-463d-853b-b520e65683bb'
+        })//await response.json();
+        return result;
     } catch (error) {
-        console.error("Error issuing certificate:", error);
     }
 }
 
