@@ -1,6 +1,6 @@
 import React from "react";
 import { getSession } from "./(auth)/action";
-import Login from "./(auth)/login/page";
+import Signup from "./(auth)/sign-up/page";
 import "@rainbow-me/rainbowkit/styles.css";
 import { Metadata } from "next";
 import { ScaffoldEthAppWithProviders } from "~~/components/ScaffoldEthAppWithProviders";
@@ -40,7 +40,7 @@ export default async function ScaffoldEthApp({
                 {children}
               </>
             ) : (
-              <Login />
+              <Signup />
             )}
           </ScaffoldEthAppWithProviders>
         </ThemeProvider>
