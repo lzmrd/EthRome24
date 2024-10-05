@@ -1,56 +1,50 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-// Per il redirect
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const router = useRouter();
 
-  const router = useRouter(); // Hook per il redirect
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitLoading(true);
-    setErrorMessage("");
+    setErrorMessage(null);
 
     try {
+      const formData = new FormData(formRef.current as HTMLFormElement);
+      const formEmail = formData.get("email") as string;
+      const formPassword = formData.get("password") as string;
+
+      const bodyObj = {
+        username: formEmail,
+        password: formPassword,
+      };
+
       const response = await fetch("/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          username: formData.email,
-          password: formData.password,
-        }),
+        body: JSON.stringify(bodyObj),
       });
 
-      const data = await response.json();
+      const result = await response.json();
 
-      if (!response.ok) {
-        setErrorMessage(data.message);
-      } else {
-        // Reindirizza alla pagina dashboard o home
-        router.push("/courses");
+      if (response.status !== 200) {
+        setErrorMessage(result.message || "Login failed");
+        setIsSubmitLoading(false);
+        return;
       }
     } catch (error) {
-      setErrorMessage("An error occurred. Please try again.");
+      setErrorMessage("An error occurred during login.");
     } finally {
+      router.push("/courses");
       setIsSubmitLoading(false);
     }
   };
@@ -60,20 +54,12 @@ export default function LoginForm() {
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
           <h2 className="card-title">Login</h2>
-          <form onSubmit={handleSubmit}>
+          <form ref={formRef} onSubmit={handleSubmit}>
             <div className="form-control">
               <label className="label" htmlFor="email">
                 <span className="label-text">Email</span>
               </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="input input-bordered"
-                required
-              />
+              <input type="email" id="email" name="email" className="input input-bordered" required />
             </div>
 
             <div className="form-control">
@@ -85,8 +71,6 @@ export default function LoginForm() {
                   type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
-                  value={formData.password}
-                  onChange={handleChange}
                   className="input input-bordered pr-10 w-full"
                   required
                 />

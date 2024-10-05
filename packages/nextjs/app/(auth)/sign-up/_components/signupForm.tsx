@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-// Per il redirect
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 export default function SignupForm() {
@@ -22,7 +21,7 @@ export default function SignupForm() {
     color: "bg-transparent",
   });
 
-  const router = useRouter(); // Hook per il reindirizzamento
+  const router = useRouter();
 
   const getPasswordStrength = (password: string) => {
     let strength = "";

@@ -1,7 +1,11 @@
+import React from "react";
+import { getSession } from "./(auth)/action";
+import Login from "./(auth)/login/page";
 import "@rainbow-me/rainbowkit/styles.css";
 import { Metadata } from "next";
 import { ScaffoldEthAppWithProviders } from "~~/components/ScaffoldEthAppWithProviders";
 import { ThemeProvider } from "~~/components/ThemeProvider";
+import UserInfo from "~~/components/UserInfo";
 import "~~/styles/globals.css";
 
 // import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
@@ -18,16 +22,29 @@ export const metadata: Metadata = {
   },
 };
 
-const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
+export default async function ScaffoldEthApp({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const session = await getSession();
+
   return (
     <html suppressHydrationWarning>
       <body>
         <ThemeProvider enableSystem>
-          <ScaffoldEthAppWithProviders>{children}</ScaffoldEthAppWithProviders>
+          <ScaffoldEthAppWithProviders>
+            {session.isLoggedIn ? (
+              <>
+                <UserInfo />
+                {children}
+              </>
+            ) : (
+              <Login />
+            )}
+          </ScaffoldEthAppWithProviders>
         </ThemeProvider>
       </body>
     </html>
   );
-};
-
-export default ScaffoldEthApp;
+}
