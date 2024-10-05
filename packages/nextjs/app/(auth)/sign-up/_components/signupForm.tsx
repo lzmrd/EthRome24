@@ -3,8 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import usePimlico from "~~/app/pimlico/usePimlico";
 
 export default function SignupForm() {
+  const { predictSmartAccountAddress } = usePimlico();
+
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
@@ -32,10 +35,6 @@ export default function SignupForm() {
       strength = "None";
       width = "w-0";
       color = "bg-red-600";
-    } else if (password.length < 10) {
-      strength = "Medium";
-      width = "w-3/4";
-      color = "bg-yellow-500";
     } else if (password.length < 10) {
       strength = "Medium";
       width = "w-3/4";
@@ -81,8 +80,7 @@ export default function SignupForm() {
           surname: formData.surname,
           email: formData.email,
           password: formData.password,
-          createdAt: new Date().toISOString()
-
+          createdAt: new Date().toISOString(),
         }),
       });
 
@@ -94,7 +92,7 @@ export default function SignupForm() {
         router.push("/login");
       }
     } catch (error) {
-      setErrorMessage("An error occurred. Please try again.");
+      setErrorMessage("Something went wrong, please try again later.");
     } finally {
       setIsSubmitLoading(false);
     }
@@ -127,7 +125,7 @@ export default function SignupForm() {
               <input
                 type="text"
                 id="surname"
-                name="surname" // Corretto da "name" a "surname"
+                name="surname"
                 value={formData.surname}
                 onChange={handleChange}
                 className="input input-bordered"

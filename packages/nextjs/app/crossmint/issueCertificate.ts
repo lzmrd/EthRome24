@@ -1,6 +1,6 @@
 // Define the necessary details for issuing the certificate
 const userEmail = "user@email.com"; // Replace with recipient email
-const templateId = "crossmint:5fe6040e-07a1-48bb-97a3-b588a7e927d2:CourseCompletionCertificate"; // Replace with your template ID from Crossmint
+const templateId = "a653aa39-2085-4315-9728-ce16e3177a72"; // Replace with your template ID from Crossmint
 const apiKey = "sk_staging_5vYiDyB7oZ6m4PjngihVTRSqJuKFRjV6v9zRmWxPx2odVHHyBij8q5WXPwbWirDk8oSQNeSsoTTnM8iNcHCDUEDKmpunqcgWYsdGFYC47QLkfHMn6R66v6xc9u3m5N1ce1ZHAQLVBTAykXMRnbHTJthgYDcV2Cvn9oqTyWJss5o3AGvjkaHj6RvT8Yo3CS6UAuQoi7XXEdyAPmYBLc2677QN"//process.env.NEXT_PUBLIC_CROSSMINT_API_KEY; // Replace with your Crossmint API key
 
 if (!apiKey) {

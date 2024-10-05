@@ -8,6 +8,12 @@ import Navbar from "~~/components/Navbar";
 import { SessionData } from "./api/login/auth.types";
 import Providers from "./providers";
 
+/* const config = createConfig({
+  autoConnect: true,
+  publicClient: publicProvider(),
+  chains: [sepolia],
+});
+ */
 export const metadata: Metadata = {
   title: "Nome da definire",
   description: "Descrizione da definire",
