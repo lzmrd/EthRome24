@@ -6,17 +6,5 @@
     "password": "$2b$10$nI47WUVCYdOonsIr/zjl.Ob12eGWHt/NtDv1XLTFU8M3885Qulapy",
     "email": "mrossi@live.it",
     "createdAt": "2024-10-05T12:01:00Z"
-  },
-  {
-    "name": "Mario",
-    "surname": "Rosso",
-    "email": "asd@lu.it",
-    "password": "$2b$10$xT25HUcpai8k8YI5.Fyg1emVDPM/NnpoSIO8/YpXMFcfg8Qu38sTK"
-  },
-  {
-    "name": "asd",
-    "surname": "asd",
-    "email": "li@it.it",
-    "password": "$2b$10$1gCc1YAQcQq15whhzj7KqOia.Y8UlJBf6yJj20b2GuYmjJkWPpPhy"
   }
 ]

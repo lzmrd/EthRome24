@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
 import YouTubeStyleVideoPlayer from "./videoPlayer";
+import { issueCourseCompletionCertificate } from "~~/app/crossmint/issueCertificate";
 
 interface Course {
   id: number;
@@ -16,9 +17,10 @@ interface Course {
 
 interface CourseDetailsProps {
   courseId: string;
+  userEmail:string;
 }
 
-export default function CourseDetails({ courseId }: CourseDetailsProps) {
+export default function CourseDetails({ courseId,userEmail }: CourseDetailsProps) {
   const [course, setCourse] = useState<Course | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
@@ -56,6 +58,12 @@ export default function CourseDetails({ courseId }: CourseDetailsProps) {
     return <div>Course not found.</div>;
   }
 
+  async function certificateCourseCompletation(){
+  
+    const test = await issueCourseCompletionCertificate(userEmail, course?.title ?? "", "success", "2034-01-01");
+    console.log(test)
+  }
+
   return (
     <div className="card w-full max-w-2xl bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="card-body p-6">
@@ -64,7 +72,7 @@ export default function CourseDetails({ courseId }: CourseDetailsProps) {
           <h2 className="text-2xl font-bold text-gray-800">{course.title}</h2>
           <p className="text-gray-700">{course.description}</p>
         </div>
-        <YouTubeStyleVideoPlayer videoUrl={course.urlVideo} />
+        <YouTubeStyleVideoPlayer videoUrl={course.urlVideo} certificateCourseCompletation={certificateCourseCompletation}/>
       </div>
     </div>
   );

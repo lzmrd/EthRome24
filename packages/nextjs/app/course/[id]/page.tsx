@@ -1,9 +1,11 @@
 
 import Link from "next/link";
 import CourseDetails from "./_components/courseDetails";
+import { getSession } from "~~/app/(auth)/action";
 
-export default function DetailCourse({ params }: { params: { id: string } }) {
+export default async function DetailCourse({ params }: { params: { id: string } }) {
 
+  const session = await getSession();
   return (
     <div className="container mx-auto p-4">
       <div className="mt-8">
@@ -12,7 +14,7 @@ export default function DetailCourse({ params }: { params: { id: string } }) {
         </Link>
       </div>
       <div className="flex items-center justify-center">
-        <CourseDetails courseId={params.id} />
+        <CourseDetails courseId={params.id} userEmail={session.user.email}/>
       </div>
     </div>
   );

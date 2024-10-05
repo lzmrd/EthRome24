@@ -45,7 +45,7 @@ export async function POST(req: Request) {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  users.push({ name, surname, email, password: hashedPassword }); 
+  users.push({ name, surname, email, password: hashedPassword,smartAccountAddress }); 
   fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
 
   return new Response(JSON.stringify({ message: "Utente registrato con successo", smartAccountAddress }), { status: 201 });

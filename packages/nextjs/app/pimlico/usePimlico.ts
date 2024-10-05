@@ -13,13 +13,18 @@ import { pimlicoClient, pimlicoRpcUrl } from "./clientSetup";
 export default function usePimlico() {
   const { isConnected } = useAccount();
   const [smartAccountClient, setSmartAccountClient] = useState<SmartAccountClient | null>(null);
+  const [error, setError] = useState<string | null>(null); // State to manage errors
   const publicClient = usePublicClient();
   const { wallets } = useWallets();
   const { data: walletClient } = useWalletClient();
   const { setActiveWallet } = useSetActiveWallet();
 
-  const embeddedWallet = useMemo(() => wallets.find((wallet) => wallet.walletClientType === "privy"), [wallets]);
+  // Get the embedded wallet
+  const embeddedWallet = useMemo(() => 
+    wallets.find((wallet) => wallet.walletClientType === "privy"), [wallets]
+  );
 
+  // Fetch Pimlico Smart Account
   const fetchPimlicoSmartAccount = useCallback(async () => {
     if (!publicClient || !walletClient) return;
 
@@ -44,14 +49,18 @@ export default function usePimlico() {
           },
         },
       });
+
       setSmartAccountClient(smartAccountClient);
+      setError(null); // Reset any previous errors
       return smartAccountClient;
     } catch (error) {
-      console.error("Errore nel creare lo SmartAccountClient:", error);
+      console.error("Error creating SmartAccountClient:", error);
+      setError("Failed to create smart account client."); // Set error state
       return null;
     }
   }, [publicClient, walletClient]);
 
+  // Predict the Smart Account Address
   const predictSmartAccountAddress = async () => {
     if (!publicClient || !walletClient) return;
 
@@ -62,15 +71,18 @@ export default function usePimlico() {
         entryPoint: {
           address: "0x0576a174D229E3cFA37253523E645A78A0C91B57",
           version: "0.6",
-        }, // global entrypoint
+        }, 
       });
+      setError(null);
       return simpleSmartAccount.address;
     } catch (error) {
-      console.error("Errore nel prevedere l'indirizzo dello Smart Account:", error);
+      console.error("Error predicting smart account address:", error);
+      setError("Failed to predict smart account address.");
       return null;
     }
   };
 
+  // Set active wallet when embedded wallet is available
   useEffect(() => {
     if (embeddedWallet) {
       setActiveWallet(embeddedWallet);
@@ -83,5 +95,9 @@ export default function usePimlico() {
     }
   }, [isConnected, walletClient, publicClient, fetchPimlicoSmartAccount]);
 
-  return { smartAccountClient, predictSmartAccountAddress };
+  return { 
+    smartAccountClient, 
+    predictSmartAccountAddress, 
+    error 
+  };
 }

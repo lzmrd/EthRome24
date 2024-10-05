@@ -39,12 +39,12 @@ export default function SignupForm() {
     } else if (password.length > 0 && password.length < 6) {
       strength = "Weak";
       width = "w-1/4";
-      color = "bg-redd-500";
+      color = "bg-red-500";
     }
     else if (password.length > 6 && password.length < 10) {
       strength = "Medium";
       width = "w-3/4";
-      color = "bg-yellow-500";
+      color = "bg-orange-500";
     } else {
       strength = "Strong";
       width = "w-full";
@@ -76,6 +76,12 @@ export default function SignupForm() {
     }
 
     try {
+      // const smartAccountAddress = await predictSmartAccountAddress();
+      // if (!smartAccountAddress) {
+      //   setErrorMessage("Error predicting smart account");
+      //   return;
+      // }
+
       const response = await fetch("/api/register", {
         method: "POST",
         headers: {
@@ -87,6 +93,7 @@ export default function SignupForm() {
           email: formData.email,
           password: formData.password,
           createdAt: new Date().toISOString(),
+          smartAccountAddress: {}
         }),
       });
 

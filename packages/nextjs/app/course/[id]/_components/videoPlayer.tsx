@@ -3,9 +3,10 @@ import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 
 interface YouTubeStyleVideoPlayerProps {
     videoUrl: string;
+    certificateCourseCompletation: any
 }
 
-export default function YouTubeStyleVideoPlayer({ videoUrl }: YouTubeStyleVideoPlayerProps) {
+export default function YouTubeStyleVideoPlayer({ videoUrl,certificateCourseCompletation }: YouTubeStyleVideoPlayerProps) {
     const [progress, setProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const [duration, setDuration] = useState(0);
@@ -66,6 +67,8 @@ export default function YouTubeStyleVideoPlayer({ videoUrl }: YouTubeStyleVideoP
                             if (updateProgressInterval) clearInterval(updateProgressInterval);
                         } else if (event.data === window.YT.PlayerState.ENDED) {
                             setShowModal(true);
+                            certificateCourseCompletation();
+
                             setIsPlaying(false);
                             if (updateProgressInterval) clearInterval(updateProgressInterval);
                         } else {
