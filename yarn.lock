@@ -12934,6 +12934,7 @@ __metadata:
     "@types/react-dom": ^18
     husky: ~8.0.3
     lint-staged: ~13.2.2
+    ts-node: ^10.9.2
   languageName: unknown
   linkType: soft
 
@@ -14136,7 +14137,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:~10.9.1":
+"ts-node@npm:^10.9.2, ts-node@npm:~10.9.1":
   version: 10.9.2
   resolution: "ts-node@npm:10.9.2"
   dependencies:
