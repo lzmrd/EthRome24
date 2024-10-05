@@ -25,10 +25,14 @@ export default function SignupForm() {
     let width = "w-0";
     let color = "bg-transparent";
 
-    if (password.length < 6) {
-      strength = "Weak";
-      width = "w-1/4";
+    if (password.length === 0) {
+      strength = "None";
+      width = "w-0";
       color = "bg-red-600";
+    } else if (password.length < 10) {
+      strength = "Medium";
+      width = "w-3/4";
+      color = "bg-yellow-500";
     } else if (password.length < 10) {
       strength = "Medium";
       width = "w-3/4";
@@ -52,7 +56,7 @@ export default function SignupForm() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  async function submitSignupForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage("The passwords do not match!");
@@ -81,14 +85,14 @@ export default function SignupForm() {
     } catch (error) {
       setErrorMessage("An error occurred. Please try again.");
     }
-  };
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
           <h2 className="card-title">Signup</h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={submitSignupForm}>
             <div className="form-control">
               <label className="label" htmlFor="name">
                 <span className="label-text">Name</span>
