@@ -29,11 +29,11 @@ export async function POST(req: Request) {
 
   const session = await getSession();
   session.isLoggedIn = true;
-  session.user = { 
-    name : user.name,
-    surname : user.surname,
-    email : user.email 
-   };
+  session.user = {
+    id: user.id,
+    name: user.name,
+    email: user.email
+  };
   await session.save();
 
   return new Response(

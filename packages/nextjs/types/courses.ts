@@ -9,6 +9,7 @@ export interface Course {
   durationHours: number;
   mode: string;
   language: string;
+  urlVideo: string;
 }
 
 export interface CourseCatalog {

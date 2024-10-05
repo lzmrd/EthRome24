@@ -7,6 +7,7 @@ export async function middleware(req: NextRequest) {
   const pathname = url.pathname;
   const session: SessionData = await getSession();
 
+  // Allow static files and favicon
   if (pathname.startsWith('/_next/') || pathname.startsWith('/favicon.ico')) {
     return NextResponse.next();
   }

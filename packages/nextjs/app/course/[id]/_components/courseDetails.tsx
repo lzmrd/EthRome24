@@ -1,4 +1,6 @@
+"use client"
 import { useEffect, useState } from "react";
+import YouTubeStyleVideoPlayer from "./videoPlayer";
 
 interface Course {
   id: number;
@@ -7,6 +9,7 @@ interface Course {
   category: string;
   level: string;
   durationHours: number;
+  urlVideo: string,
   mode: string;
   language: string;
 }
@@ -54,29 +57,14 @@ export default function CourseDetails({ courseId }: CourseDetailsProps) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="card w-full max-w-2xl bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="card-body p-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{course.title}</h2>
-          <p className="text-gray-700 mb-4">{course.description}</p>
-          <div className="border-t border-gray-300 mt-4 pt-4">
-            <p className="text-gray-800">
-              <strong>Category:</strong> {course.category}
-            </p>
-            <p className="text-gray-800">
-              <strong>Level:</strong> {course.level}
-            </p>
-            <p className="text-gray-800">
-              <strong>Duration:</strong> {course.durationHours} hours
-            </p>
-            <p className="text-gray-800">
-              <strong>Mode:</strong> {course.mode}
-            </p>
-            <p className="text-gray-800">
-              <strong>Language:</strong> {course.language}
-            </p>
-          </div>
+    <div className="card w-full max-w-2xl bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="card-body p-6">
+        <span className="badge badge-primary text-white px-4 py-2">{course.category}</span>
+        <div className="border-t border-gray-300 mt-4 pt-4">
+          <h2 className="text-2xl font-bold text-gray-800">{course.title}</h2>
+          <p className="text-gray-700">{course.description}</p>
         </div>
+        <YouTubeStyleVideoPlayer videoUrl={course.urlVideo} />
       </div>
     </div>
   );

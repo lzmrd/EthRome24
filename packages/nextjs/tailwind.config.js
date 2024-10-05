@@ -6,7 +6,7 @@ module.exports = {
   darkMode: ["selector", "[data-theme='dark']"],
   // DaisyUI theme colors
   daisyui: {
-    themes: ['cupcake', 'dark'
+    themes: ['cyberpunk', 'dark'
       // {
       //   light: {
       //     primary: "#93BBFB",
