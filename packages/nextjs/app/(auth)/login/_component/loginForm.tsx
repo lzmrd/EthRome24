@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRef, useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import Link from "next/link";
 
@@ -9,8 +9,18 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showUserCreated, setShowUserCreated] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Check for success message in the query params
+  useEffect(() => {
+    const userCreated = searchParams.get("userCreated");
+    if (userCreated) {
+      setShowUserCreated(true);
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,11 +52,12 @@ export default function LoginForm() {
         setIsSubmitLoading(false);
         return;
       }
+      // Redirect to the next page
+      router.push("/courses");
+      location.reload();
     } catch (error) {
       setErrorMessage("An error occurred during login.");
     } finally {
-      router.push("/courses");
-      location.reload();
       setIsSubmitLoading(false);
     }
   };
@@ -55,14 +66,39 @@ export default function LoginForm() {
     <div className="min-h-screen flex items-center justify-center bg-base-200">
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
-          {/* Centered LearnETH Title */}
-          <h2 className="card-title text-center">LearnETH</h2>
+          <h2 className="card-title justify-center">LearnETH</h2>
+
+          {/* Show success message */}
+          {showUserCreated &&
+            <div role="alert" className="alert alert-success">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 shrink-0 stroke-current"
+                fill="none"
+                viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>User created</span>
+            </div>
+
+          }
+
           <form ref={formRef} onSubmit={handleSubmit}>
             <div className="form-control">
               <label className="label" htmlFor="email">
                 <span className="label-text">Email</span>
               </label>
-              <input type="email" id="email" name="email" className="input input-bordered" required />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="input input-bordered"
+                required
+              />
             </div>
 
             <div className="form-control">
@@ -97,7 +133,7 @@ export default function LoginForm() {
 
           <div className="mt-2 text-center">
             <Link href="/sign-up">
-              <span className="text-sm  hover:underline">Go to signup</span>
+              <span className="text-sm hover:underline">Go to signup</span>
             </Link>
           </div>
         </div>

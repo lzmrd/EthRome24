@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import usePimlico from "~~/app/pimlico/usePimlico";
+import Link from "next/link";
 
 export default function SignupForm() {
   const { predictSmartAccountAddress } = usePimlico();
@@ -35,7 +36,12 @@ export default function SignupForm() {
       strength = "None";
       width = "w-0";
       color = "bg-red-600";
-    } else if (password.length < 10) {
+    } else if (password.length > 0 && password.length < 6) {
+      strength = "Weak";
+      width = "w-1/4";
+      color = "bg-redd-500";
+    }
+    else if (password.length > 6 && password.length < 10) {
       strength = "Medium";
       width = "w-3/4";
       color = "bg-yellow-500";
@@ -89,7 +95,7 @@ export default function SignupForm() {
       if (!response.ok) {
         setErrorMessage(data.message);
       } else {
-        router.push("/login");
+        router.push("/login?userCreated=true");
       }
     } catch (error) {
       setErrorMessage("Something went wrong, please try again later.");
@@ -102,7 +108,7 @@ export default function SignupForm() {
     <div className="min-h-screen flex items-center justify-center bg-base-200">
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
-          <h2 className="card-title">Signup</h2>
+          <h2 className="card-title justify-center">Signup to LearnETH</h2>
           <form onSubmit={submitSignupForm}>
             <div className="form-control">
               <label className="label" htmlFor="name">
@@ -110,7 +116,6 @@ export default function SignupForm() {
               </label>
               <input
                 type="text"
-                id="name"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
@@ -124,7 +129,6 @@ export default function SignupForm() {
               </label>
               <input
                 type="text"
-                id="surname"
                 name="surname"
                 value={formData.surname}
                 onChange={handleChange}
@@ -139,7 +143,6 @@ export default function SignupForm() {
               </label>
               <input
                 type="email"
-                id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
@@ -155,7 +158,6 @@ export default function SignupForm() {
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
-                  id="password"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
@@ -204,6 +206,12 @@ export default function SignupForm() {
               </button>
             </div>
           </form>
+
+          <div className="mt-2 text-center">
+            <Link href="/login">
+              <span className="text-sm  hover:underline">Go back to login</span>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
