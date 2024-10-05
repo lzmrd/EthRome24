@@ -1,9 +1,8 @@
 import React from "react";
 import { getSession } from "./(auth)/action";
-import Login from "./(auth)/login/page";
 import "@rainbow-me/rainbowkit/styles.css";
 import { Metadata } from "next";
-import { ScaffoldEthAppWithProviders } from "~~/components/ScaffoldEthAppWithProviders";
+// import { ScaffoldEthAppWithProviders } from "~~/components/ScaffoldEthAppWithProviders";
 import { ThemeProvider } from "~~/components/ThemeProvider";
 import UserInfo from "~~/components/UserInfo";
 import "~~/styles/globals.css";
@@ -33,16 +32,12 @@ export default async function ScaffoldEthApp({
     <html suppressHydrationWarning>
       <body>
         <ThemeProvider enableSystem>
-          {session.isLoggedIn ? (
-            <>
-              <ScaffoldEthAppWithProviders>
-                <UserInfo />
-                {children}
-              </ScaffoldEthAppWithProviders>
-            </>
-          ) : (
-            <Login />
-          )}
+          {/* <ScaffoldEthAppWithProviders> */}
+            {session.isLoggedIn && (
+              <UserInfo/>
+            )}
+            {children}
+          {/* </ScaffoldEthAppWithProviders> */}
         </ThemeProvider>
       </body>
     </html>

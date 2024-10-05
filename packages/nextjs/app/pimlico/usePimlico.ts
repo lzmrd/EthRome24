@@ -13,8 +13,7 @@ import { pimlicoClient, pimlicoRpcUrl } from "./clientSetup";
 
 export default function usePimlico() {
   const { isConnected } = useAccount();
-  const [smartAccountClient, setSmartAccountClient] =
-    useState<SmartAccountClient | null>(null);
+  const [smartAccountClient, setSmartAccountClient] = useState<SmartAccountClient | null>(null);
   const publicClient = usePublicClient();
   const { wallets } = useWallets();
   const { data: walletClient } = useWalletClient();
