@@ -80,7 +80,8 @@ export default function CourseDetails({ courseId, userEmail }: CourseDetailsProp
       {objCertificate && (
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10 ">
           <div className="bg-white p-5 rounded-lg shadow-lg text-center">
-            <h2 className="text-xl font-semibold">Congratulations</h2>
+            <h2 className="text-xl font-semibold">Congratulations!</h2>
+            <p>Here it is your attestation:</p>
             <div role="alert" className="alert alert-success">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

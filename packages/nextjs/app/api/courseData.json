@@ -2,8 +2,8 @@
     "courses": [
         {
             "id": 101,
-            "title": "Introduction to Programming with Python",
-            "description": "Learn the basics of programming with the Python language.",
+            "title": "Introduction to Blockchain",
+            "description": "Learn the basics of blockchain.",
             "category": "Programming",
             "level": "Beginner",
             "durationHours": 20,

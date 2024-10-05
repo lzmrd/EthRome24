@@ -6,5 +6,12 @@
     "password": "$2b$10$nI47WUVCYdOonsIr/zjl.Ob12eGWHt/NtDv1XLTFU8M3885Qulapy",
     "email": "mrossi@live.it",
     "createdAt": "2024-10-05T12:01:00Z"
+  },
+  {
+    "name": "test@live.it",
+    "surname": "sa",
+    "email": "sa@live.it",
+    "password": "$2b$10$8gqxEnQAK85VneaEcUevx.9oqmYzY5IksE3IawcX3jk2PUOAe.LxO",
+    "smartAccountAddress": {}
   }
 ]
