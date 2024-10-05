@@ -13,7 +13,7 @@ export default async function Navbar(){
 
   return (
     <nav className="flex justify-between items-center p-4 bg-gray-800 text-white">
-      <div className="text-lg font-bold">My App</div>
+      <div className="text-lg font-bold">LearnETH</div>
       <div className="flex items-center">
         {session && session.user ? (
           <>

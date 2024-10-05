@@ -15,14 +15,24 @@ export default function YouTubeStyleVideoPlayer({ videoUrl }: YouTubeStyleVideoP
     const [showModal, setShowModal] = useState(false);
     const [updateProgressInterval, setUpdateProgressInterval] = useState<NodeJS.Timeout | null>(null);
     const [isHovered, setIsHovered] = useState(false);
+    const [isApiReady, setIsApiReady] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const tag = document.createElement("script");
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName("script")[0];
-        firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+        if (typeof window !== 'undefined' && !window.YT) {
+            const tag = document.createElement("script");
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName("script")[0];
+            firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
 
-        window.onYouTubeIframeAPIReady = () => {
+            window.onYouTubeIframeAPIReady = () => {
+                setIsApiReady(true);
+            };
+        }
+    }, []);
+
+    useEffect(() => {
+        if (isApiReady) {
             const videoId = new URL(videoUrl).searchParams.get("v");
             const newPlayer = new window.YT.Player("youtube-player", {
                 height: "100%",
@@ -42,6 +52,7 @@ export default function YouTubeStyleVideoPlayer({ videoUrl }: YouTubeStyleVideoP
                         setPlayer(event.target);
                         const videoDuration = event.target.getDuration();
                         setDuration(videoDuration);
+                        setIsLoading(false);
                         const intervalId = setInterval(() => {
                             const currentTime = event.target.getCurrentTime();
                             setCurrentTime(currentTime);
@@ -64,14 +75,12 @@ export default function YouTubeStyleVideoPlayer({ videoUrl }: YouTubeStyleVideoP
                     },
                 },
             });
-        };
+        }
 
         return () => {
-            const scriptTags = document.querySelectorAll('script[src="https://www.youtube.com/iframe_api"]');
-            scriptTags.forEach((tag) => tag.remove());
             if (updateProgressInterval) clearInterval(updateProgressInterval);
         };
-    }, [videoUrl, duration, updateProgressInterval]);
+    }, [isApiReady, videoUrl]);
 
     const handlePlayPause = () => {
         if (player) {
@@ -122,13 +131,15 @@ export default function YouTubeStyleVideoPlayer({ videoUrl }: YouTubeStyleVideoP
 
     return (
         <div className="w-full bg-gray-200 border rounded-lg shadow-lg relative">
+            {isLoading && (
+                <div className="h-[400px] w-full bg-gray-300 animate-pulse rounded-lg"></div>
+            )}
             <div
                 id="youtube-player"
-                className="h-[400px] w-full relative"
+                className={`h-[400px] w-full relative ${isLoading ? "hidden" : "block"}`}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-            >
-            </div>
+            ></div>
 
             {isHovered && (
                 <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
@@ -153,7 +164,7 @@ export default function YouTubeStyleVideoPlayer({ videoUrl }: YouTubeStyleVideoP
 
             <div className="mt-2 flex items-center justify-between px-4">
                 <div className="text-gray-600">
-                    {formatTime(currentTime)} / {formatTime(duration)}
+                    {isLoading ? "Loading..." : `${formatTime(currentTime)} / ${formatTime(duration)}`}
                 </div>
 
                 <button
@@ -179,5 +190,4 @@ export default function YouTubeStyleVideoPlayer({ videoUrl }: YouTubeStyleVideoP
             )}
         </div>
     );
-};
-
+}

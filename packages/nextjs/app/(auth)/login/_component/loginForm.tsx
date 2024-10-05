@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import Link from "next/link";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -54,7 +55,8 @@ export default function LoginForm() {
     <div className="min-h-screen flex items-center justify-center bg-base-200">
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
-          <h2 className="card-title">Login</h2>
+          {/* Centered LearnETH Title */}
+          <h2 className="card-title text-center">LearnETH</h2>
           <form ref={formRef} onSubmit={handleSubmit}>
             <div className="form-control">
               <label className="label" htmlFor="email">
@@ -87,11 +89,17 @@ export default function LoginForm() {
             {errorMessage && <div className="text-red-600 mt-2">{errorMessage}</div>}
 
             <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary" disabled={isSubmitLoading}>
+              <button type="submit" className="btn btn-primary btn-sm" disabled={isSubmitLoading}>
                 {isSubmitLoading ? "Loading..." : "Login"}
               </button>
             </div>
           </form>
+
+          <div className="mt-2 text-center">
+            <Link href="/sign-up">
+              <span className="text-sm  hover:underline">Go to signup</span>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
