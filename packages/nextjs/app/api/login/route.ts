@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import fs from "fs";
 import path from "path";
 
@@ -12,10 +13,16 @@ export async function POST(req: Request) {
 
   const users = JSON.parse(fs.readFileSync(usersFilePath, "utf8"));
 
-  const user = users.find(
-    (user: { username: string; password: string }) => user.username === username && user.password === password,
-  );
+  const user = users.find((user: { username: string; password: string }) => user.username === username);
+
   if (!user) {
+    return new Response(JSON.stringify({ message: "Invalid credentials" }), { status: 401 });
+  }
+
+  // Confronto della password fornita con l'hash memorizzato
+  const passwordMatch = await bcrypt.compare(password, user.password);
+
+  if (!passwordMatch) {
     return new Response(JSON.stringify({ message: "Invalid credentials" }), { status: 401 });
   }
 

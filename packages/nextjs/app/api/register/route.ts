@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import fs from "fs";
 import path from "path";
 
@@ -17,7 +18,9 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ message: "User already exists" }), { status: 409 });
   }
 
-  users.push({ username, password }); //TODO: add hasing password
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  users.push({ username, password: hashedPassword }); // Salva la password hashata
   fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
 
   return new Response(JSON.stringify({ message: "User registered successfully" }), { status: 201 });

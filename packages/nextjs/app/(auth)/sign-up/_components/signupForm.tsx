@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+// Per il redirect
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 export default function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -20,6 +21,9 @@ export default function SignupForm() {
     width: "w-0",
     color: "bg-transparent",
   });
+
+  const router = useRouter(); // Hook per il reindirizzamento
+
   const getPasswordStrength = (password: string) => {
     let strength = "";
     let width = "w-0";
@@ -39,7 +43,7 @@ export default function SignupForm() {
       color = "bg-yellow-500";
     } else {
       strength = "Strong";
-      width = "w-4/4";
+      width = "w-full";
       color = "bg-green-600";
     }
 
@@ -58,11 +62,15 @@ export default function SignupForm() {
 
   async function submitSignupForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setIsSubmitLoading(true);
+    setErrorMessage("");
+
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage("The passwords do not match!");
       setIsSubmitLoading(false);
       return;
     }
+
     try {
       const response = await fetch("/api/register", {
         method: "POST",
@@ -80,10 +88,12 @@ export default function SignupForm() {
       if (!response.ok) {
         setErrorMessage(data.message);
       } else {
-        //TODO: Redirect
+        router.push("/login");
       }
     } catch (error) {
       setErrorMessage("An error occurred. Please try again.");
+    } finally {
+      setIsSubmitLoading(false);
     }
   }
 
@@ -188,8 +198,8 @@ export default function SignupForm() {
 
             {errorMessage && <div className="text-red-600 mt-2">{errorMessage}</div>}
             <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary">
-                Confirm signup
+              <button type="submit" className="btn btn-primary" disabled={isSubmitLoading}>
+                {isSubmitLoading ? "Loading..." : "Confirm"}
               </button>
             </div>
           </form>
