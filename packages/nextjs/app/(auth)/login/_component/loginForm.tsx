@@ -45,6 +45,7 @@ export default function LoginForm() {
       setErrorMessage("An error occurred during login.");
     } finally {
       router.push("/courses");
+      location.reload();
       setIsSubmitLoading(false);
     }
   };
